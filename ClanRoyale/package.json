@@ -7,7 +7,7 @@
   },
   "description": "ClanRoyale",
   "author": {
-    "name": "cborrmann"
+    "name": "Niptide"
   },
   "main": "app.js",
   "dependencies": {
