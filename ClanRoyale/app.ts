@@ -1,10 +1,14 @@
 ﻿require('dotenv').config();
+import bot from "./bot/bot";
 import debug = require('debug');
 import express = require('express');
 import path = require('path');
 
 import routes from './routes/index';
 import users from './routes/user';
+
+const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
+bot.login(DISCORD_BOT_TOKEN);
 
 var app = express();
 
@@ -53,5 +57,3 @@ app.set('port', process.env.PORT || 3000);
 var server = app.listen(app.get('port'), function () {
     debug('Express server listening on port ' + server.address().port);
 });
-
-require('./bot');
