@@ -1,29 +1,28 @@
 ﻿import * as Discord from "discord.js";
 import * as cmds from "./commands/deserters";
 
-const bot = new Discord.Client();
-
-const ROYALE_API_TOKEN = process.env.ROYALE_API_TOKEN;
+const Bot = new Discord.Client();
 
 var clanTag = '2P8LCRU2';
 var commandPrefix = '!cr';
+var ROYALE_API_TOKEN;
 
-bot.on('ready', () => {
-    console.log(`Logged in as ${bot.user.tag}!`);
-    bot.user.setActivity(`use ${commandPrefix} help`);
+Bot.on('ready', () => {
+    console.log(`Logged in as ${Bot.user.tag}!`);
+    Bot.user.setActivity(`use ${commandPrefix} help`);
 });
 
-bot.on('error', error => {
-    console.error(error); //`Discord bot got an error on it's websocket...`
+Bot.on('error', error => {
+    console.error(error); //`Discord Bot got an error on it's websocket...`
 });
 
-bot.on('disconnect', closeEvent => {
-    console.log(`Discord bot disconnected: ${closeEvent.code} - Cleanly? ${closeEvent.wasClean} - reason:${closeEvent.code}`);
+Bot.on('disconnect', closeEvent => {
+    console.log(`Discord Bot disconnected: ${closeEvent.code} - Cleanly? ${closeEvent.wasClean} - reason:${closeEvent.code}`);
 });
 
 // <Message Listener>
-bot.on('message', msg => {
-    if (msg.author.bot) return; // Ignore bots.
+Bot.on('message', msg => {
+    if (msg.author.bot) return; // Ignore Bots.
     if (msg.channel.type === "dm") return; // Ignore DM channels.
     console.trace(`received msg: ${msg.content}`);
     if (msg.content === 'ping' || msg.content === `${commandPrefix} ping`) {
@@ -43,4 +42,7 @@ bot.on('message', msg => {
 });
 // </Message Listener>
 
-export default bot;
+export default function ( config ) {
+    ROYALE_API_TOKEN = config.ROYALE_API_TOKEN;
+    Bot.login(config.DISCORD_BOT_TOKEN);
+}
